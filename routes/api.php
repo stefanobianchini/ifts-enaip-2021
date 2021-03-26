@@ -14,19 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// /api/users
+// Ricordarsi il prefisso /api/ davanti a tutte le rotte quando le richiamiamo
+// da Postman
 
-Route::get('/users', 
-'App\Http\Controllers\DemoController@getUsers');
-Route::get('/users/{id}', 
-'App\Http\Controllers\DemoController@getSingleUser'); 
-Route::post('/users', 
-'App\Http\Controllers\DemoController@postUsers');
-Route::put('/users/{id}', 
-'App\Http\Controllers\DemoController@putUsers');
-Route::patch('/users/{id}', 
-'App\Http\Controllers\DemoController@patchUsers');
-Route::delete('/users/{id}', 
-'App\Http\Controllers\DemoController@deleteUsers');
+//Risorsa: book => uri /books
 
-Route::post('/books', 'App\Http\Controllers\DemoController@postBooks');
+Route::get('/books', 'App\Http\Controllers\BookController@getBooks');
+Route::get('/books/{id}', 'App\Http\Controllers\BookController@getSingleBook');
+Route::post('/books', 'App\Http\Controllers\BookController@createBook');
+Route::delete('/books/{id}', 'App\Http\Controllers\BookController@deleteBook');
+Route::put('/books/{id}', 'App\Http\Controllers\BookController@updateBook');
+Route::patch('/books/{id}', 'App\Http\Controllers\BookController@partialUpdateBook');
+
