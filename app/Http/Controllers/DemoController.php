@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Book;
 
 class DemoController extends Controller
 {
@@ -43,5 +44,16 @@ class DemoController extends Controller
 
     public function deleteUsers($id) {
         return response('delete users');
+    }
+
+    public function postBooks() {
+        $book = new Book();
+        $book->title = 'Divina Commedia';
+        $book->abstract = 'Nel mezzo del cammin...';
+        $book->author = 'Dante Alighieri';
+        $book->pages = 300;
+        $book->save();
+
+        return response()->json($book, 201);
     }
 }

@@ -28,3 +28,5 @@ Route::patch('/users/{id}',
 'App\Http\Controllers\DemoController@patchUsers');
 Route::delete('/users/{id}', 
 'App\Http\Controllers\DemoController@deleteUsers');
+
+Route::post('/books', 'App\Http\Controllers\DemoController@postBooks');
