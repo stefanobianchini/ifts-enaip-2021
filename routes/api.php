@@ -26,3 +26,9 @@ Route::delete('/books/{id}', 'App\Http\Controllers\BookController@deleteBook');
 Route::put('/books/{id}', 'App\Http\Controllers\BookController@updateBook');
 Route::patch('/books/{id}', 'App\Http\Controllers\BookController@partialUpdateBook');
 
+Route::get('/authors', 'App\Http\Controllers\AuthorController@getAuthors');
+Route::get('/authors/{id}', 'App\Http\Controllers\AuthorController@getSingleAuthor');
+Route::post('/authors', 'App\Http\Controllers\AuthorController@createAuthor');
+Route::delete('/authors/{id}', 'App\Http\Controllers\AuthorController@deleteAuthor');
+Route::put('/authors/{id}', 'App\Http\Controllers\AuthorController@updateAuthor');
+Route::patch('/authors/{id}', 'App\Http\Controllers\AuthorController@partialUpdateAuthor');

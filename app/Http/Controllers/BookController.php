@@ -50,4 +50,64 @@ class BookController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function updateBook(Request $request, $id) {
+        $book = Book::findOrFail($id);
+
+        //Validare
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|max:255',
+            'abstract' => 'required|max:1000',
+            'author' => 'required|max:255',
+            'pages' => 'required|integer'
+        ]);
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        //Salvare
+        $book->title = $request->input('title');
+        $book->abstract = $request->input('abstract');
+        $book->author = $request->input('author');
+        $book->pages = $request->input('pages');
+        $book->save();
+
+        //Rispondere
+        return response()->json($book, 200);
+    }
+
+    public function partialUpdateBook(Request $request, $id) {
+        $book = Book::findOrFail($id);
+        $validator = Validator::make($request->all(),[
+            'title' => 'sometimes|required|max:255',
+            'abstract' => 'sometimes|required|max:1000',
+            'author' => 'sometimes|required|max:255',
+            'pages' => 'sometimes|required|integer'
+        ]);
+        if($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        if($request->has('title')) {
+            $book->title = $request->input('title');
+        }
+        if($request->has('abstract')) {
+            $book->abstract = $request->input('abstract');
+        }
+        if($request->has('author')) {
+            $book->author = $request->input('author');
+        }
+        if($request->has('pages')) {
+            $book->pages = $request->input('pages');
+        }
+        $book->save();
+
+        return response()->json($book,200);
+
+    }
+
 }
