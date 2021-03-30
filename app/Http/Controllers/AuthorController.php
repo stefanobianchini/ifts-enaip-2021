@@ -15,7 +15,7 @@ class AuthorController extends Controller
     }
 
     public function getSingleAuthor($id) {
-        $author = Author::findOrFail($id);
+        $author = Author::with('books')->findOrFail($id);
         return response()->json($author, 200);
     }
 

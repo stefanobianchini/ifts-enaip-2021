@@ -15,7 +15,7 @@ class BookController extends Controller
     }
 
     public function getSingleBook($id) {
-        $book = Book::findOrFail($id);
+        $book = Book::with('author')->findOrFail($id);
         return response()->json($book, 200);
     }
 
@@ -24,7 +24,7 @@ class BookController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|max:255',
             'abstract' => 'required|max:1000',
-            'author' => 'required|max:255',
+            'author_id' => 'required|exists:authors,id',
             'pages' => 'required|integer'
         ]);
         if($validator->fails()) {
@@ -36,7 +36,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->input('title');
         $book->abstract = $request->input('abstract');
-        $book->author = $request->input('author');
+        $book->author_id = $request->input('author_id');
         $book->pages = $request->input('pages');
         $book->save();
 
@@ -58,7 +58,7 @@ class BookController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|max:255',
             'abstract' => 'required|max:1000',
-            'author' => 'required|max:255',
+            'author_id' => 'required|exists:authors,id',
             'pages' => 'required|integer'
         ]);
         if($validator->fails()) {
@@ -70,7 +70,7 @@ class BookController extends Controller
         //Salvare
         $book->title = $request->input('title');
         $book->abstract = $request->input('abstract');
-        $book->author = $request->input('author');
+        $book->author_id = $request->input('author_id');
         $book->pages = $request->input('pages');
         $book->save();
 
@@ -83,7 +83,7 @@ class BookController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'sometimes|required|max:255',
             'abstract' => 'sometimes|required|max:1000',
-            'author' => 'sometimes|required|max:255',
+            'author_id' => 'sometimes|required|exists:authors,id',
             'pages' => 'sometimes|required|integer'
         ]);
         if($validator->fails()) {
@@ -98,8 +98,8 @@ class BookController extends Controller
         if($request->has('abstract')) {
             $book->abstract = $request->input('abstract');
         }
-        if($request->has('author')) {
-            $book->author = $request->input('author');
+        if($request->has('author_id')) {
+            $book->author_id = $request->input('author_id');
         }
         if($request->has('pages')) {
             $book->pages = $request->input('pages');

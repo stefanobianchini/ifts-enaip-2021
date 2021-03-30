@@ -17,7 +17,8 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('title'); //VARCHAR
             $table->text('abstract'); //TEXT
-            $table->string('author'); //VARCHAR
+            $table->unsignedBigInteger('author_id');
+            $table->integer('pages');
             $table->timestamps();
         });
     }
