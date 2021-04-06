@@ -21,14 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/books', 'App\Http\Controllers\BookController@getBooks');
 Route::get('/books/{id}', 'App\Http\Controllers\BookController@getSingleBook');
-Route::post('/books', 'App\Http\Controllers\BookController@createBook');
-Route::delete('/books/{id}', 'App\Http\Controllers\BookController@deleteBook');
-Route::put('/books/{id}', 'App\Http\Controllers\BookController@updateBook');
-Route::patch('/books/{id}', 'App\Http\Controllers\BookController@partialUpdateBook');
+Route::post('/books', 'App\Http\Controllers\BookController@createBook')->middleware('only_localhost');
+Route::delete('/books/{id}', 'App\Http\Controllers\BookController@deleteBook')->middleware('only_localhost');
+Route::put('/books/{id}', 'App\Http\Controllers\BookController@updateBook')->middleware('only_localhost');
+Route::patch('/books/{id}', 'App\Http\Controllers\BookController@partialUpdateBook')->middleware('only_localhost');
 
 Route::get('/authors', 'App\Http\Controllers\AuthorController@getAuthors');
 Route::get('/authors/{id}', 'App\Http\Controllers\AuthorController@getSingleAuthor');
-Route::post('/authors', 'App\Http\Controllers\AuthorController@createAuthor');
-Route::delete('/authors/{id}', 'App\Http\Controllers\AuthorController@deleteAuthor');
-Route::put('/authors/{id}', 'App\Http\Controllers\AuthorController@updateAuthor');
-Route::patch('/authors/{id}', 'App\Http\Controllers\AuthorController@partialUpdateAuthor');
+Route::middleware('only_localhost')->group(function() {
+    Route::post('/authors', 'App\Http\Controllers\AuthorController@createAuthor');
+    Route::delete('/authors/{id}', 'App\Http\Controllers\AuthorController@deleteAuthor');
+    Route::put('/authors/{id}', 'App\Http\Controllers\AuthorController@updateAuthor');
+    Route::patch('/authors/{id}', 'App\Http\Controllers\AuthorController@partialUpdateAuthor');
+});

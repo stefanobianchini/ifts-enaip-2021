@@ -10,7 +10,7 @@ class BookController extends Controller
 {
     public function getBooks() {
         //Leggere tutti i record della tabella books
-        $books = Book::get();
+        $books = Book::orderBy('title')->get();
         return response()->json($books, 200);
     }
 
